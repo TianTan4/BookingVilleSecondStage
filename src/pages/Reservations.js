@@ -60,20 +60,24 @@ sendData=()=>{
      })
     };
     fetch('https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/query-reservation', requestOptions)
-        .then(async response => {
-            
-           
-            // display data in UI.
-            
+    .then(
+        fetch(apiEndpoint + "reserve", requestOptions)
+         .then(async (response) => {
+           const data = await response.json();
+   
+           // display data in UI.
+           this.setState({ postId: data });
+         })
+         )   
     
-        }).then(json=>{
-            fetch(apiEndpoint + "reserve", requestOptions);
-        }).then(async (response) => {
-          const data = await response.json();
-  
-          // display data in UI.
-          this.setState({ postId: data });
-        })
+    // .then(async response => {
+        //     const data = await response.json();
+           
+        //     // display data in UI.
+        //     this.setState({ postId: data })
+    
+        // })
+
         .catch(error => {
                              this.setState({ errorMessage: error.toString() });
                             console.error('There was an error!', error);
