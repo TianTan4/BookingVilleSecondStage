@@ -59,7 +59,7 @@ sendData=()=>{
                         "reserveCount": this.state.reserveCount
      })
     };
-    fetch('https://w49087jfp7.execute-api.us-west-2.amazonaws.com/v1/query-reservation', requestOptions)
+    fetch('https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/query-reservation', requestOptions)
         .then(async response => {
             
            
