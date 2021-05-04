@@ -8,10 +8,13 @@ import {Header} from 'semantic-ui-react'
 import Calendar from 'react-calendar'
 import * as moment from 'moment'
 import Title from '../components/Title'
+const apiEndpoint =
+  "https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/";
+
 export default class SingleRoom extends Component {
     constructor(props){
 super(props)
-this.state={
+this.state = {
     slug:this.props.match.params.slug,
     reserveCount:1,
     peopleCount:1,
@@ -46,7 +49,7 @@ sendData=()=>{
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' ,
-         Authorization: `Bearer ${currentUser}`,},
+         Authorization: currentUser,},
         body: JSON.stringify({      
             //   "customerId": currentUser,
                         "hotelName": hotel,
@@ -58,16 +61,25 @@ sendData=()=>{
     };
     fetch('https://w49087jfp7.execute-api.us-west-2.amazonaws.com/v1/query-reservation', requestOptions)
         .then(async response => {
-            const data = await response.json();
+            
            
             // display data in UI.
-            this.setState({ postId: data })
+            
     
+        }).then(json=>{
+            fetch(apiEndpoint + "reserve", requestOptions);
+        }).then(async (response) => {
+          const data = await response.json();
+  
+          // display data in UI.
+          this.setState({ postId: data });
         })
         .catch(error => {
                              this.setState({ errorMessage: error.toString() });
                             console.error('There was an error!', error);
-                     });    
+                     });  
+                     
+                     
 }
 onChangeCheckIn=(value,event)=>{
 const NewDate = moment(value, 'DD-MM-YYYY')
