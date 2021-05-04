@@ -60,7 +60,7 @@ sendData=()=>{
      })
     };
     fetch('https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/query-reservation', requestOptions)
-    .then(
+  
         fetch(apiEndpoint + "reserve", requestOptions)
          .then(async (response) => {
            const data = await response.json();
@@ -68,7 +68,7 @@ sendData=()=>{
            // display data in UI.
            this.setState({ postId: data });
          })
-         )   
+         
     
     // .then(async response => {
         //     const data = await response.json();
