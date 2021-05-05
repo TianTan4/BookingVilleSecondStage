@@ -8,6 +8,7 @@ import {Header} from 'semantic-ui-react'
 import Calendar from 'react-calendar'
 import * as moment from 'moment'
 import Title from '../components/Title'
+// import Map from '../components/GoogleMap'
 const apiEndpoint =
   "https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/";
 
@@ -59,16 +60,16 @@ sendData=()=>{
                         "reserveCount": this.state.reserveCount
      })
     };
-    fetch('https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/query-reservation', requestOptions)
-  
-        fetch(apiEndpoint + "reserve", requestOptions)
+   
+  fetch(apiEndpoint + "reserve",requestOptions)
+    .then(fetch('https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/query-reservation', requestOptions)
          .then(async (response) => {
            const data = await response.json();
    
            // display data in UI.
            this.setState({ postId: data });
          })
-         
+    )
     
     // .then(async response => {
         //     const data = await response.json();
@@ -245,6 +246,11 @@ changePeople=(event)=>{
                 Confirm
                  </button>
 </div >
+
+{/* <div>
+<Map/>
+</div> */}
+
 
              </div>
         )
