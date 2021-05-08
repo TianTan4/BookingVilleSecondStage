@@ -15,7 +15,7 @@ this.state={
     }
 static contextType=RoomContext;
 
-componentDidMount(){}
+
 
 
     render() {

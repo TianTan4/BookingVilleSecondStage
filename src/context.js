@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import items from "./data"
 import Client from './Contentful'
-
+import * as moment from 'moment'
 
 const RoomContext=React.createContext();
 
@@ -22,9 +22,57 @@ const RoomContext=React.createContext();
         pets:false,
         hotel:"all",
         postId:[],
-        currentUser:null
+        currentUser:null,
+        checkInDate:moment((new Date()), 'DD-MM-YYYY').format().substring(0,10),
+        checkOutDate:moment((new Date()), 'DD-MM-YYYY').format().substring(0,10),
+        reserveCount:1,
+        peopleCount:1
 
     }
+//change and pass reservation information including checkin,out, numbers of people and rooms  
+passReservationInf=(checkInDate,checkOutDate,reserveCount,peopleCount)=>{
+this.setState({checkInDate,checkOutDate,reserveCount,peopleCount})
+}
+//get reservation data
+
+getReservationData=()=>{
+    console.log("get reservation data has been trigger and currentUser is ",this.state.currentUser);
+    
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' ,
+         Authorization: this.state.currentUser},
+        body: JSON.stringify({      
+            //   "customerId": currentUser,         
+                        "checkInDate": moment((new Date()), 'DD-MM-YYYY').format().substring(0,10),
+                        "checkOutDate": '2023-05-22'               
+     })
+    };
+   
+  
+fetch('https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/query-reservation', requestOptions)
+         .then(async (response) => {
+           const data = await response.json();
+   
+           // display data in UI.
+           this.setState({ postId: data });
+         })
+    // .then(async response => {
+        //     const data = await response.json();
+           
+        //     // display data in UI.
+        //     this.setState({ postId: data })
+    
+        // })
+
+        .catch(error => {
+                             this.setState({ errorMessage: error.toString() });
+                            console.error('There was an error!', error);
+                     });  
+                     
+                     
+}
+
 //getData
 getData=async()=>{
     try {
@@ -223,14 +271,15 @@ filterRooms=()=>{
    
 
     render() {
+        console.log("postId is",this.state.postId);
         return (
             
-  <RoomContext.Provider value={{...this.state,getRoom:this.getRoom,handleChange:this.handleChange,signOut:this.signOut}}>
+  <RoomContext.Provider value={{...this.state,getReservationData:this.getReservationData,passReservationInf:this.passReservationInf,getRoom:this.getRoom,handleChange:this.handleChange,signOut:this.signOut}}>
  {this.props.children}
- {console.log("the data is ",this.state.postId)}
- {console.log("error message is,",this.state.errorMessage)}
+ {console.log("the checkin data inside context is ",this.state.checkInDate)}
+ {/* {console.log("error message is,",this.state.errorMessage)}
  {console.log("currentUser of context is",this.state.currentUser)}
- {console.log("current window.location.href is",window.location.href)}
+ {console.log("current window.location.href is",window.location.href)} */}
  </RoomContext.Provider>
         )
     }

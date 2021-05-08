@@ -39,10 +39,11 @@ componentDidMount(){}
 //             })
 
 sendData=()=>{
-    const{getRoom,currentUser}=this.context;
+    const{getRoom,currentUser,passReservationInf}=this.context;
     console.log("currentUser inside sendData is ",currentUser)
         const room=getRoom(this.state.slug);
         const {name,hotel}=room;
+        passReservationInf(this.state.checkInDate,this.state.checkOutDate,this.state.reserveCount,this.state.peopleCount)
         console.log("inside send data, state is ",this.state)
         console.log("inside send data, hotel is  ",hotel);
         console.log("inside send data, room is  ",name);
@@ -62,14 +63,14 @@ sendData=()=>{
     };
    
   fetch(apiEndpoint + "reserve",requestOptions)
-    .then(fetch('https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/query-reservation', requestOptions)
-         .then(async (response) => {
-           const data = await response.json();
+    // .then(fetch('https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/query-reservation', requestOptions)
+    //      .then(async (response) => {
+    //        const data = await response.json();
    
-           // display data in UI.
-           this.setState({ postId: data });
-         })
-    )
+    //        // display data in UI.
+    //        this.setState({ postId: data });
+    //      })
+    // )
     
     // .then(async response => {
         //     const data = await response.json();
@@ -242,9 +243,11 @@ changePeople=(event)=>{
             </div>
             </div>
              <div className='reserve '>
-     <button onClick={this.sendData} className='btn-primary reserve '>
+             <Link to={`reservation/currentorder`} onClick={this.sendData} className='btn-primary reserve'>  
+     
                 Confirm
-                 </button>
+               
+                 </Link>
 </div >
 
 {/* <div>
