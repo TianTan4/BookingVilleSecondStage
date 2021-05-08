@@ -21,12 +21,35 @@ const RoomContext=React.createContext();
         breakfast:false,
         pets:false,
         hotel:"all",
-        postId:[],
+        roomOrders:[],
         currentUser:null,
         checkInDate:moment((new Date()), 'DD-MM-YYYY').format().substring(0,10),
         checkOutDate:moment((new Date()), 'DD-MM-YYYY').format().substring(0,10),
         reserveCount:1,
-        peopleCount:1
+        peopleCount:1,
+        testroomOrders:[{
+            "roomId": "2HEFRawDNMAGXPmHiBOGkp-303",
+            "roomType": "Double Deluxe Room",
+            "roomNumber": 303,
+            "hotelName": "Hilton",
+            "reservationId": "04a87ea1-b63b-49b2-9f48-4fe6860f2747",
+            "customerId": "01e7d58f-04d6-416b-ba84-58620582a05e",
+            "checkInDate": "2021-05-06T00:00:00.000Z",
+            "checkOutDate": "2021-05-09T00:00:00.000Z",
+            "reservedTime": "2021-05-05T01:25:44.000Z",
+            "cancelledTime": null
+        },{
+            "roomId": "12UlQgREmWjaZdVesg5575-118",
+            "roomType": "Single Economy",
+            "roomNumber": 118,
+            "hotelName": "FourSeasons",
+            "reservationId": "06762703-5dfd-4387-b5cf-6d1f7dd1d8ac",
+            "customerId": "01e7d58f-04d6-416b-ba84-58620582a05e",
+            "checkInDate": "2021-05-22T00:00:00.000Z",
+            "checkOutDate": "2021-05-23T00:00:00.000Z",
+            "reservedTime": "2021-05-08T04:51:43.000Z",
+            "cancelledTime": null
+        }]
 
     }
 //change and pass reservation information including checkin,out, numbers of people and rooms  
@@ -55,7 +78,7 @@ fetch('https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/query-reservati
            const data = await response.json();
    
            // display data in UI.
-           this.setState({ postId: data });
+           this.setState({ roomOrders: data });
          })
     // .then(async response => {
         //     const data = await response.json();
@@ -271,7 +294,7 @@ filterRooms=()=>{
    
 
     render() {
-        console.log("postId is",this.state.postId);
+        console.log("roomOrders is",this.state.roomOrders);
         return (
             
   <RoomContext.Provider value={{...this.state,getReservationData:this.getReservationData,passReservationInf:this.passReservationInf,getRoom:this.getRoom,handleChange:this.handleChange,signOut:this.signOut}}>

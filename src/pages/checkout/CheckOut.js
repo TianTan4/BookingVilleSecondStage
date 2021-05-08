@@ -1,14 +1,17 @@
-import React from 'react';
-
+import React , {useContext}from 'react';
+import {RoomContext} from '../../context'
 import StripeCheckoutButton from '../../components/StripeButton'
 import StyledHero from '../../components/StyledHero'
 import Banner from '../../components/Banner'
 import {Link} from 'react-router-dom'
 import Image from '../../images/defaultBcg.jpeg'
-
+import CheckOutItem from './CheckOutPageItem'
 const CheckoutPage = () => {
     
-
+  const context=useContext(RoomContext)
+  const {
+    roomOrders
+  }=context;
   
   return(
   <div className=' RoomContainer'>
@@ -22,22 +25,35 @@ const CheckoutPage = () => {
   <div className='checkout-page'>
       <div className='checkout-header'>
         <div className='header-block'>
-          <span>Product</span>
+          <span>roomType</span>
+        </div>
+
+        <div className='header-block'>
+          <span>Hotel</span>
         </div>
         <div className='header-block'>
-          <span>Description</span>
+          <span>Reservation Date</span>
         </div>
         <div className='header-block'>
-          <span>Quantity</span>
+          <span>Rooms</span>
         </div>
         <div className='header-block'>
-          <span>Price</span>
+          <span>Total Price</span>
         </div>
         <div className='header-block'>
           <span>Remove</span>
         </div>
       </div>
-      <div className='total'>TOTAL: 300</div>
+
+
+     
+      {roomOrders.map(roomOrder => (
+        <CheckOutItem key={roomOrder.roomid} roomOrder={roomOrder} />
+      ))}
+
+
+
+      <div className='total'>TOTAL: 300 $</div>
       <div className='test-warning'>
         *Please use the following test credit card for payments*
         <br />

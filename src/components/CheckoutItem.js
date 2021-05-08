@@ -18,7 +18,7 @@ const CheckoutItem =(props)=>{
           <span className='value'>{Difference_In_Days}</span>
           
         </span>
-        <span className='price'>{price}$</span>
+        <span className='price'>{price} $</span>
         
         <div
           className='remove-button'
