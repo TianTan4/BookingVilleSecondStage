@@ -40,20 +40,18 @@ componentDidMount(){}
 
 sendData=()=>{
     const{getRoom,currentUser,passReservationInf}=this.context;
-    console.log("currentUser inside sendData is ",currentUser)
+   
         const room=getRoom(this.state.slug);
         const {name,hotel}=room;
         passReservationInf(this.state.checkInDate,this.state.checkOutDate,this.state.reserveCount,this.state.peopleCount)
-        console.log("inside send data, state is ",this.state)
-        console.log("inside send data, hotel is  ",hotel);
-        console.log("inside send data, room is  ",name);
-        console.log("currentUser is ",currentUser)
+        
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' ,
          Authorization: currentUser,},
         body: JSON.stringify({      
             //   "customerId": currentUser,
+            //  
                         "hotelName": hotel,
                         "roomType": name,
                         "checkInDate": this.state.checkInDate,
@@ -61,8 +59,21 @@ sendData=()=>{
                         "reserveCount": this.state.reserveCount
      })
     };
+    
+
+    // const requestOptions = {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' ,
+    //      Authorization: currentUser,},
+    //     body: JSON.stringify({      
+    //         //   "customerId": currentUser,
+    //         //  
+    //                    reservationIds:[]
+    //  })
+    // };
    
-  fetch(apiEndpoint + "reserve",requestOptions)
+  fetch(apiEndpoint + "make-reservation",requestOptions)
+  //fetch(apiEndpoint + "cancel-reservation",requestOptions)
     // .then(fetch('https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/query-reservation', requestOptions)
     //      .then(async (response) => {
     //        const data = await response.json();
@@ -79,14 +90,12 @@ sendData=()=>{
         //     this.setState({ postId: data })
     
         // })
-
         .catch(error => {
                              this.setState({ errorMessage: error.toString() });
                             console.error('There was an error!', error);
-                     });  
-                     
-                     
+                     });              
 }
+
 onChangeCheckIn=(value,event)=>{
 const NewDate = moment(value, 'DD-MM-YYYY')
 console.log('check in NewDate is ',NewDate.format().substring(0,10));
@@ -259,3 +268,20 @@ changePeople=(event)=>{
         )
 }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

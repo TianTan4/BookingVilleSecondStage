@@ -9,7 +9,7 @@ import {RoomContext} from '../context'
     
   const context=useContext(RoomContext)
   const {
-     currentUser,signOut
+     currentUser,signOut,getReservationData
   }=context;
         return (
             <nav className="navbar">
@@ -26,9 +26,22 @@ import {RoomContext} from '../context'
             </div> 
             
             <ul className={"nav-links"}>
-                <li>
+                {/* <li>
+                    <Link to="/">Home</Link>
+                    </li> */}
+
+                    {currentUser ? (
+          <li  >
+          <Link to={`/checkout`} onClick={getReservationData}>My Reservation</Link>
+          </li>
+        ) : (
+          <li>
                     <Link to="/">Home</Link>
                     </li>
+        )}
+             
+
+
                     <li>
                     <Link to="/rooms">Rooms</Link>
                 </li>

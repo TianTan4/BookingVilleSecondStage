@@ -5,8 +5,11 @@ import * as moment from 'moment'
 
 const RoomContext=React.createContext();
 
- class RoomProvider extends Component {
-    state={
+  class RoomProvider extends Component {
+    
+      constructor(props) {
+        super(props)
+       this.state={
         rooms:[],
         sortedRooms:[],
         featuredRooms:[],
@@ -27,35 +30,71 @@ const RoomContext=React.createContext();
         checkOutDate:moment((new Date()), 'DD-MM-YYYY').format().substring(0,10),
         reserveCount:1,
         peopleCount:1,
-        testroomOrders:[{
-            "roomId": "2HEFRawDNMAGXPmHiBOGkp-303",
-            "roomType": "Double Deluxe Room",
-            "roomNumber": 303,
-            "hotelName": "Hilton",
-            "reservationId": "04a87ea1-b63b-49b2-9f48-4fe6860f2747",
-            "customerId": "01e7d58f-04d6-416b-ba84-58620582a05e",
-            "checkInDate": "2021-05-06T00:00:00.000Z",
-            "checkOutDate": "2021-05-09T00:00:00.000Z",
-            "reservedTime": "2021-05-05T01:25:44.000Z",
-            "cancelledTime": null
-        },{
-            "roomId": "12UlQgREmWjaZdVesg5575-118",
-            "roomType": "Single Economy",
-            "roomNumber": 118,
-            "hotelName": "FourSeasons",
-            "reservationId": "06762703-5dfd-4387-b5cf-6d1f7dd1d8ac",
-            "customerId": "01e7d58f-04d6-416b-ba84-58620582a05e",
-            "checkInDate": "2021-05-22T00:00:00.000Z",
-            "checkOutDate": "2021-05-23T00:00:00.000Z",
-            "reservedTime": "2021-05-08T04:51:43.000Z",
-            "cancelledTime": null
-        }]
-
+        testroomOrders:[
+            {
+                "roomIdPrefix": "5sWlE9k9EL6BVcExvGlJ1X",
+                "reservationIds": [
+                    "1b7cd561-7cc9-482a-b20b-280d65151489",
+                    "8095527b-bea1-494b-8f32-b88a9ad3194b",
+                    "c25ae8b6-9a02-4957-8af8-b31e61296d6f",
+                    "d0ad592a-7a34-4889-96f0-fc83cb15b9a8",
+                    "d98778e7-e3eb-46bb-a2f4-d5f8ff81f7dd"
+                ],
+                "hotelName": " DoubleTree by Hilton Hotel Alana - Waikiki Beach",
+                "checkInDate": "2021-05-10T00:00:00.000Z",
+                "checkOutDate": "2021-05-12T00:00:00.000Z",
+                "cancelledTime": null
+            },
+            {
+                "roomIdPrefix": "65wNls8W9swzseZggssHF9",
+                "reservationIds": [
+                    "247e2fba-ba57-464b-b459-fbd106b97b2e",
+                    "73a83930-08b0-4033-a7ab-8d573480a7e7",
+                    "7aeb9e52-9df3-4177-b441-5b7d03e79206",
+                    "9ec877bc-780b-4d59-a734-e32fd8306d4b",
+                    "f30c6433-e358-4d66-a642-a7e59c6a1018"
+                ],
+                "hotelName": "Hilton Hawaiian Village Waikiki Beach Resort",
+                "checkInDate": "2021-05-14T00:00:00.000Z",
+                "checkOutDate": "2021-05-15T00:00:00.000Z",
+                "cancelledTime": null
+            },
+            {
+                "roomIdPrefix": "4tGsnEhVC8qZhvPcX43AGn",
+                "reservationIds": [
+                    "675692d8-7bfd-4f0c-8761-507246332f80",
+                    "7fd99d35-10de-4455-a4f5-fa3d09993350"
+                ],
+                "hotelName": " DoubleTree by Hilton Hotel Alana - Waikiki Beach",
+                "checkInDate": "2021-05-14T00:00:00.000Z",
+                "checkOutDate": "2021-05-15T00:00:00.000Z",
+                "cancelledTime": null
+            },
+            {
+                "roomIdPrefix": "3v2U4AvTzcg9BBfpGIjDig",
+                "reservationIds": [
+                    "c95b890c-278b-45b9-bfe9-71966b81b981",
+                    "d9bb2eff-ecad-46f9-8052-5355dd3b1e4d"
+                ],
+                "hotelName": " DoubleTree by Hilton Hotel Alana - Waikiki Beach",
+                "checkInDate": "2021-05-12T00:00:00.000Z",
+                "checkOutDate": "2021-05-13T00:00:00.000Z",
+                "cancelledTime": null
+            }
+        ]
+    }
+    
+   
     }
 //change and pass reservation information including checkin,out, numbers of people and rooms  
+
+
 passReservationInf=(checkInDate,checkOutDate,reserveCount,peopleCount)=>{
 this.setState({checkInDate,checkOutDate,reserveCount,peopleCount})
 }
+
+
+
 //get reservation data
 
 getReservationData=()=>{
@@ -140,7 +179,8 @@ getCurrentUser=()=>{
 
 
 componentDidMount(){
-   this.getData();
+//    this.getData();
+this.getData();
    this.getCurrentUser();
 //    this.sendData();
   console.log("context component has been rendered")
@@ -234,6 +274,16 @@ getRoom=(slug)=>{
     return room;
 }
 
+getRoomAccordingToRoomId=(roomId)=>{
+    const roomIdPart=roomId.substring(0,10);
+    let tempRooms=[...this.state.rooms];
+ console.log("getRoom has been triggered and temprooms are",tempRooms)
+    const room=tempRooms.find((room)=>room.id.substring(0,10)===roomIdPart)
+    
+    return room;
+}
+
+
 handleChange=event=>{
     const target=event.target
     console.log("target type is ", target.type);
@@ -297,7 +347,7 @@ filterRooms=()=>{
         console.log("roomOrders is",this.state.roomOrders);
         return (
             
-  <RoomContext.Provider value={{...this.state,getReservationData:this.getReservationData,passReservationInf:this.passReservationInf,getRoom:this.getRoom,handleChange:this.handleChange,signOut:this.signOut}}>
+  <RoomContext.Provider value={{...this.state,getRoomAccordingToRoomId:this.getRoomAccordingToRoomId,getReservationData:this.getReservationData,passReservationInf:this.passReservationInf,getRoom:this.getRoom,handleChange:this.handleChange,signOut:this.signOut}}>
  {this.props.children}
  {console.log("the checkin data inside context is ",this.state.checkInDate)}
  {/* {console.log("error message is,",this.state.errorMessage)}

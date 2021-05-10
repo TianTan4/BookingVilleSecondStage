@@ -22,6 +22,7 @@ static contextType=RoomContext;
         console.log("this.state.slug is ",this.state.slug)
         const{getRoom}=this.context
         const room=getRoom(this.state.slug)
+        console.log("inside single room,room is ",room)
         if(!room){
             return(<div className="error">
             <h3>no such room could be found...</h3>
