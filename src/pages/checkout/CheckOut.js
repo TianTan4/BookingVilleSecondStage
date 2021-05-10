@@ -124,22 +124,9 @@ if(getDataLoading){
       </div>
       </div>
      
-{/* {const singleOrder= {
-  "roomIdPrefix": "5sWlE9k9EL6BVcExvGlJ1X",
-  "reservationIds": [
-      "1b7cd561-7cc9-482a-b20b-280d65151489",
-      "8095527b-bea1-494b-8f32-b88a9ad3194b",
-      "c25ae8b6-9a02-4957-8af8-b31e61296d6f",
-      "d0ad592a-7a34-4889-96f0-fc83cb15b9a8",
-      "d98778e7-e3eb-46bb-a2f4-d5f8ff81f7dd"
-  ],
-  "hotelName": " DoubleTree by Hilton Hotel Alana - Waikiki Beach",
-  "checkInDate": "2021-05-10T00:00:00.000Z",
-  "checkOutDate": "2021-05-12T00:00:00.000Z",
-  "cancelledTime": null
-};} */}
-     {console.log("function is trigger and remained items are ",cartItems)}
-      {cartItems.map( roomOrder => {
+     {console.log("currently cartItems are  ",cartItems)}
+     {console.log("currently roomOrders are  ",roomOrders)}
+      {roomOrders.map( roomOrder => {
        
         const temproom= getRoomAccordingToRoomId(roomOrder.roomIdPrefix)
         const reserveCount=roomOrder.reservationIds.length;
@@ -156,8 +143,6 @@ if(getDataLoading){
         roomOrder={roomOrder} 
         roomCount={reserveCount}/>)
       })}
-
-
 
       <div className='total'>TOTAL: {totalPrice} $</div>
       <div className='test-warning'>
