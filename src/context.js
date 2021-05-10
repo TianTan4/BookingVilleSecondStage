@@ -14,6 +14,7 @@ const RoomContext=React.createContext();
         sortedRooms:[],
         featuredRooms:[],
         loading:true,
+        getDataLoading:true,
         type:'all',
         capacity:1,
         price:0,
@@ -117,7 +118,7 @@ fetch('https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/query-reservati
            const data = await response.json();
    
            // display data in UI.
-           this.setState({ roomOrders: data });
+           this.setState({ roomOrders: data,getDataLoading:false });
          })
     // .then(async response => {
         //     const data = await response.json();

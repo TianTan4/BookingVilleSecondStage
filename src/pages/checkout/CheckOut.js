@@ -6,11 +6,12 @@ import Banner from '../../components/Banner'
 import {Link} from 'react-router-dom'
 import Image from '../../images/defaultBcg.jpeg'
 import CheckOutItem from './CheckOutPageItem'
+import Loading from '../../components/Loading'
 const CheckoutPage = () => {
  
   const context=useContext(RoomContext)
   const {
-    currentUser,roomOrders,getRoomAccordingToRoomId
+    currentUser,roomOrders,getRoomAccordingToRoomId,getDataLoading
   }=context;
   var totalPrice=0;
   const [cartItems, setCartItems] = useState(roomOrders);
@@ -81,6 +82,10 @@ const CheckoutPage = () => {
 //    }
 //   })
 // })
+console.log("currently,loading is ",getDataLoading)
+if(getDataLoading){
+  return <Loading />
+} 
 
   return(
   <div className=' RoomContainer'>
