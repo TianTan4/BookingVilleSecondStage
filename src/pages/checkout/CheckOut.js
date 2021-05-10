@@ -1,4 +1,4 @@
-import React , {useContext,useState}from 'react';
+import React , {useContext,useState,useEffect}from 'react';
 import {RoomContext} from '../../context'
 import StripeCheckoutButton from '../../components/StripeButton'
 import StyledHero from '../../components/StyledHero'
@@ -15,7 +15,9 @@ const CheckoutPage = () => {
   }=context;
   var totalPrice=0;
   const [cartItems, setCartItems] = useState(roomOrders);
-
+  useEffect(() => {
+    setCartItems(roomOrders);
+  }, [roomOrders]);
   const filterItemFromCart = (cartItems, item) =>
   cartItems.filter(cartItem => cartItem.roomIdPrefix !== item.roomIdPrefix);
   const clearItemFromCart = item =>
@@ -126,7 +128,7 @@ if(getDataLoading){
      
      {console.log("currently cartItems are  ",cartItems)}
      {console.log("currently roomOrders are  ",roomOrders)}
-      {roomOrders.map( roomOrder => {
+      {cartItems.map( roomOrder => {
        
         const temproom= getRoomAccordingToRoomId(roomOrder.roomIdPrefix)
         const reserveCount=roomOrder.reservationIds.length;

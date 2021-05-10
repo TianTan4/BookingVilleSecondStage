@@ -26,7 +26,7 @@ const RoomContext=React.createContext();
         pets:false,
         hotel:"all",
         roomOrders:[],
-        currentUser:null,
+        currentUser:"",
         checkInDate:moment((new Date()), 'DD-MM-YYYY').format().substring(0,10),
         checkOutDate:moment((new Date()), 'DD-MM-YYYY').format().substring(0,10),
         reserveCount:1,
