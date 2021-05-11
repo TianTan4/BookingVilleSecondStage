@@ -8,6 +8,7 @@ import {Header} from 'semantic-ui-react'
 import Calendar from 'react-calendar'
 import * as moment from 'moment'
 import Title from '../components/Title'
+
 // import Map from '../components/GoogleMap'
 const apiEndpoint =
   "https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/";
@@ -22,6 +23,11 @@ this.state = {
     checkInDate:moment((new Date()), 'DD-MM-YYYY').format().substring(0,10),
     checkOutDate:moment((new Date()), 'DD-MM-YYYY').format().substring(0,10),
     postId:[],
+    alert:{
+        type: 'error',
+        text: 'This is a alert message',
+        show: false
+      },
     defaultBcg
 }
     }
@@ -95,6 +101,26 @@ sendData=()=>{
                             console.error('There was an error!', error);
                      });              
 }
+
+
+//show alert
+// onCloseAlert=()=>{
+//     console.log("onclosed has been triggered");
+//     this.setState({alert:{
+//       type: '',
+//       text: '',
+//       show: false
+//     }})
+//   }
+
+// onShowAlert=(type)=>{
+//     console.log("onshow has been triggered");
+//     this.setState({alert:{
+//       type: type,
+//       text: 'Demo alert',
+//       show: true
+//     }})
+//   }
 
 onChangeCheckIn=(value,event)=>{
 const NewDate = moment(value, 'DD-MM-YYYY')
@@ -203,9 +229,7 @@ changePeople=(event)=>{
  <option value="10">
 10 people
 </option>
- <option value="11">
-11 people
-</option>
+
                 </select>
             </div>
             <label htmlFor="size">How many Rooms</label>
@@ -244,30 +268,33 @@ changePeople=(event)=>{
  <option value="10">
 10 rooms
 </option>
- <option value="11">
-11 rooms
-</option>
+
 
                 </select>
             </div>
             </div>
-             <div className='reserve '>
+            {currentUser ?(<div className='reserve '>
              <Link to={`reservation/currentorder`} onClick={this.sendData} className='btn-primary reserve'>  
-     
-                Confirm
-               
+                Confirm              
                  </Link>
-</div >
+</div >):(<div style={{ color: 'red',textAlign:'center',marginTop:'100px',fontSize:'24px'}}>
+        *Please Sign In before making reservations*
+      </div>)
+             }
+
+             <div style={{ color: 'red',textAlign:'center',marginTop:'100px',fontSize:'24px'}}>
+        
+      </div>)
 
 {/* <div>
 <Map/>
 </div> */}
 
-
              </div>
         )
 }
 }
+
 
 
 

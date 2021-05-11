@@ -5,7 +5,10 @@ const CheckoutItem = (props) => {
 const {checkInDate,checkOutDate,hotelName,reservationIds}=props.roomOrder
 const{roomCount,roomPrice,roomName,clearItemFromCart,DeleteData}=props;
 
-
+const date1 = new Date(checkInDate);
+    const date2 = new Date(checkOutDate);
+    const Difference_In_Time = date2.getTime() - date1.getTime();
+    const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
 
 
 
@@ -24,7 +27,7 @@ console.log("current props.roomOder is",props.roomOrder)
        
       </span>
       <span className='price'>{roomCount}</span>
-      <span className='price'>{roomPrice*roomCount}$</span>
+      <span className='price'>{Difference_In_Days*roomPrice*roomCount}$</span>
       <div
         className='remove-button'
        onClick={()=>{

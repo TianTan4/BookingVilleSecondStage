@@ -53,30 +53,36 @@
 import React from 'react'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
-function  Map(){
+function  Map({lat,lng}){
+  
     return (
         <GoogleMap
         
-        defaultCenter={{lat: -24.397, lng: 150.644}}
+        defaultCenter={{lat: lat, lng: lng}}
         defaultZoom={10}
         
        
       >
         { /* Child components, such as markers, info windows, etc. */ }
-        <Marker position={{ lat: -24.397, lng: 150.644 }} />
+        <Marker position={{ lat: lat, lng: lng }} />
         <></>
       </GoogleMap>
     )
 }
 const WrappedMap=withScriptjs(withGoogleMap(Map))
-export default function App(){
-   return (<div style={{width:'100vw',height:'100vh'}}>
+
+
+export default function App({lat,lng}){
+  
+   return (<div style={{width:'68vw',height:'50vh'}}>
        
    <WrappedMap
     googleMapURL= {`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDgDau332Mb1yV5Rp-5EzUP0Jl4Kp-5pno`}
     loadingElement= {<div style={{ height: `100%` }} />}
     containerElement={ <div style={{ height: `400px` }} />}
     mapElement={ <div style={{ height: `100%` }} />}
+    lat={lat}
+    lng={lng}
     ></WrappedMap>
     </div>
    )

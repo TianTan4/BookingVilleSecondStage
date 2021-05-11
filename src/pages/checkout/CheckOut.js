@@ -119,11 +119,7 @@ if(getDataLoading){
         <div className='header-block'>
           <span>Remove</span>
         </div>
-        <div
-        className='remove-button'
-      >
-        &#10005;
-      </div>
+      
       </div>
      
      {console.log("currently cartItems are  ",cartItems)}

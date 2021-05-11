@@ -9,6 +9,7 @@ import Error from './pages/Error'
 import {Route,Switch} from 'react-router-dom'
 import Navbar from './components/Navbar'
 import CheckOut from './pages/checkout/CheckOut'
+
 function App() {
   return (
     <div className="App">
