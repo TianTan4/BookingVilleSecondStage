@@ -125,13 +125,18 @@ if(getDataLoading){
      {console.log("currently cartItems are  ",cartItems)}
      {console.log("currently roomOrders are  ",roomOrders)}
       {cartItems.map( roomOrder => {
-       
+        const {checkInDate,checkOutDate}=roomOrder;
+        const date1 = new Date(checkInDate);
+        const date2 = new Date(checkOutDate);
+        const Difference_In_Time = date2.getTime() - date1.getTime();
+        const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
         const temproom= getRoomAccordingToRoomId(roomOrder.roomIdPrefix)
         const reserveCount=roomOrder.reservationIds.length;
         const roomName=temproom.name;
         const roomImage=temproom.images[1];
         console.log("room inside checkout is ",temproom.price)
-        totalPrice=totalPrice+temproom.price*reserveCount;
+        totalPrice=totalPrice+temproom.price*reserveCount*Difference_In_Days;
         return( <CheckOutItem key={roomOrder.roomId} 
         clearItemFromCart={clearItemFromCart}
         DeleteData={DeleteData}
