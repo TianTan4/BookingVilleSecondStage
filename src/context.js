@@ -138,6 +138,7 @@ fetch('https://ak5v0aru07.execute-api.us-west-2.amazonaws.com/v1/query-reservati
 
 //getData
 getData=async()=>{
+    console.log("get data is running")
     try {
         let response=await Client.getEntries({skip:0, limit: 300, content_type:"bookingVille"
     });
@@ -276,11 +277,70 @@ getRoom=(slug)=>{
 }
 
 getRoomAccordingToRoomId=(roomId)=>{
+   
     const roomIdPart=roomId.substring(0,10);
     let tempRooms=[...this.state.rooms];
- console.log("getRoom has been triggered and temprooms are",tempRooms)
-    const room=tempRooms.find((room)=>room.id.substring(0,10)===roomIdPart)
+    if(tempRooms.length===0){
+        return({
+            "name": "Ocean View Suite",
+            "slug": "Ocean-View-Suite",
+            "price": 1085,
+            "type": "Suite",
+            "size": 1100,
+            "capacity": 4,
+            "pets": true,
+            "breakfast": true,
+            "featured": false,
+            "description": "Located in Honolulu's Kahala neighborhood, The Kahala Hotel & Resort is in the suburbs and on the beach. Kahala Mall and Royal Hawaiian Center are worth checking out if shopping is on the agenda, while those wishing to experience the area's natural beauty can explore Diamond Head and Waikiki Beach. Traveling with kids? Don't miss Honolulu Zoo. Discover the area's water adventures with kayaking and scuba diving nearby, or enjoy the great outdoors with hiking/biking trails and mountain biking. Guests appreciate the resort's quiet location.",
+            "extras": [
+                "Free newspaper",
+                "Golf course view",
+                "In-room massage",
+                "Iron/ironing board",
+                "Air conditioning",
+                "Deep soaking bathtub",
+                "Separate bathtub and shower",
+                "Pets friendly",
+                "Cleaned with disinfectant",
+                "Hand sanitizer provided",
+                "48-hour vacancy between guest room stays"
+            ],
+            "images": [
+                "//images.ctfassets.net/gs2gz1uod7ft/5vz4mZz8vImsYIhg141kxK/e330ca8424803639c23de4d225220e11/kaha-suite-lux-sea-4.webp",
+                "//images.ctfassets.net/gs2gz1uod7ft/3IB7DREJAGXp1Sf57rqE14/926e508b4abebc924f433ba0be3129a9/kaha-pool-3.webp",
+                "//images.ctfassets.net/gs2gz1uod7ft/PiMThyOTudhGB8U3NABMZ/f853ed35c85971b621e7335fb2f7c2fd/kaha-pool-dol.webp"
+            ],
+            "hotel": "The Kahala Hotel & Resort",
+            "location": {
+                "lon": -157.773,
+                "lat": 21.27181
+            },
+            "comments": [
+                "Cleanliness, staff & service, amenities, property conditions & facilities",
+                "Loved our stay and the staff. There are a lot of families and a small pool and spa, so if you want a romantic getaway this may not be for you.",
+                "We were disappointed to find so many things closed. The property fells very isolated and does not provide the basics one needs for a stay like a small market or grab and go food. There is basically nothing to purchase, so a trip the the Kahala Mall is absolutely required.",
+                "This is a wonderful hotel for a relaxing break I Oahu",
+                "Beautiful property with amazing staff. Everyone went out of their way to ensure our stay was perfect! Highly recommended."
+            ],
+            "rating": 65,
+            "id": "73Vd1pbjtEBo3uEFzN4Xx0"
+        })
+    }
+    console.log("tempRooms is ",tempRooms)
+    const room=tempRooms.find((room)=>{
+        console.log(" find function is run ",)
+        return (room.id.substring(0,10)===roomIdPart)
+    })
     
+    // var resultedRoom;
+    // for(var i=0;i<tempRooms.length;i++){
+    //     console.log("for loop is running")
+    //          if(tempRooms[i].id.substring(0,10)===roomIdPart){
+    //             resultedRoom=tempRooms[i];
+               
+    //          }
+    // }
+ 
     return room;
 }
 
