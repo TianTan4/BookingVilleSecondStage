@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import {RoomContext} from '../context'
 import StyledHero from '../components/StyledHero'
 import Map from "../pages/Test"
+import Comments from "../components/Comments"
 export default class SingleRoom extends Component {
     constructor(props){
 super(props)
@@ -32,7 +33,7 @@ static contextType=RoomContext;
             </Link>
             </div>)
         }
-        const {location,hotel,slug,name,description,capacity,size,price,extras,breakfast,pets,images}=room
+        const {comments,location,hotel,slug,name,description,capacity,size,price,extras,breakfast,pets,images}=room
      
         return (
             <>
@@ -54,7 +55,12 @@ static contextType=RoomContext;
 
             <section className="room-extras">
 <Map location={location} hotel={hotel}/>
+<Comments comments={comments} />
 </section>
+
+
+
+
 
 {/* {map} */}
 

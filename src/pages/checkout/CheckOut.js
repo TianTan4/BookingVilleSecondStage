@@ -131,7 +131,9 @@ if(getDataLoading){
         const date2 = new Date(checkOutDate);
         const Difference_In_Time = date2.getTime() - date1.getTime();
         const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-
+        //if(roomOrder.roomIdPrefix===''){
+       // roomOrder.roomIdPrefix='4xVmJMy1J4PvINn1SNeA1q'
+       // }
         const temproom= getRoomAccordingToRoomId(roomOrder.roomIdPrefix);
         
         const reserveCount=roomOrder.reservationIds.length;
